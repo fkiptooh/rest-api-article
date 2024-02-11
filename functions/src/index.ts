@@ -11,7 +11,7 @@
 // import * as logger from "firebase-functions/logger";
 import * as express from "express";
 import * as functions from "firebase-functions";
-import {addEntry} from "./entryController";
+import {addEntry, getAllEntries} from "./entryController";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -26,4 +26,6 @@ app.get("/", (req, res) => res.status(200).send("Hey there"));
 
 // Adding entry
 app.post("/entry", addEntry);
+app.get("/entry", getAllEntries);
+
 exports.app = functions.https.onRequest(app);

@@ -37,4 +37,16 @@ const addEntry = async (req: Request, res: Response) => {
   }
 };
 
-export {addEntry};
+const getAllEntries = async (req: Request, res: Response) => {
+  try {
+    const allEntries: EntyType[] = [];
+    const querySnapshot = await db.collection("entry").get();
+    querySnapshot.forEach((document: any) => allEntries.push(document.data()));
+
+    res.status(200).json(allEntries);
+  } catch (error: any) {
+    res.status(500).json(error.message);
+  }
+};
+
+export {addEntry, getAllEntries};
