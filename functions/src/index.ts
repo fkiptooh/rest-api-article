@@ -8,12 +8,15 @@
  */
 import * as express from "express";
 import * as functions from "firebase-functions";
+import * as cors from "cors";
+import * as bodyParser from "body-parser";
 import {
   addEntry,
   getAllEntries,
   updateEntry,
   deleteEntry,
 } from "./entryController";
+import {routesConfig} from "./users/route_config";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -24,6 +27,9 @@ import {
 // });
 
 const app = express();
+app.use(bodyParser.json());
+app.use(cors({origin: true}));
+routesConfig(app);
 app.get("/", (req, res) => res.status(200).send("Hey there"));
 
 // Adding entry
