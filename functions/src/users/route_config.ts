@@ -6,8 +6,8 @@ import {isAuthorized} from "../auth/authorized";
 export const routesConfig = (app: Application) => {
   app.post("/login", login);
   app.post("/user",
-    isAuthenticated,
-    isAuthorized({hasRole: ["Teacher"]}),
+    // isAuthenticated,
+    // isAuthorized({hasRole: ["Teacher"]}),
     create
   );
   app.get("/users", [

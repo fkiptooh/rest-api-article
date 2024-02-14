@@ -5,8 +5,8 @@ export const isAuthorized = (opts: {
     allowSameUser?: boolean
 }) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const {role, email, uid} = res.locals;
-    if (email === "fkiptooh@gmail.com") {
+    const {role, uid} = res.locals;
+    if (role === "Teacher") {
       return next();
     }
     const {id} = req.params;

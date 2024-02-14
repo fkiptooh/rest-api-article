@@ -1,7 +1,6 @@
 import * as dotenv from "dotenv";
 import * as admin from "firebase-admin";
 // import {ServiceAccount} from "firebase-admin";
-import {getAuth} from "firebase-admin/auth";
 
 dotenv.config();
 
@@ -21,8 +20,8 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-const userAuth = getAuth(admin.app());
 
-export {admin, db, userAuth};
+
+export {admin, db};
 
 // Now Firebase Admin is initialized and ready for use

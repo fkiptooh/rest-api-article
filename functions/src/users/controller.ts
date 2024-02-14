@@ -1,8 +1,10 @@
 import {Request, Response} from "express";
 import * as admin from "firebase-admin";
 import {handleError} from "../utils/error_handler";
-import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
-// import { userAuth } from "../config/firebase";
+import {
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import {auth} from "../config/t";
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -88,11 +90,11 @@ const remove = async (req: Request, res: Response) => {
   }
 };
 
+
 const login = async (req: Request, res: Response) => {
   const {email, password} = req.body;
 
   try {
-    const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
