@@ -15,6 +15,9 @@ import {
   getAllEntries,
   updateEntry,
   deleteEntry,
+  addAssignment,
+  getAssignments,
+  getQuestionById,
 } from "./entryController";
 import {routesConfig} from "./users/route_config";
 
@@ -37,5 +40,9 @@ app.post("/entry", addEntry);
 app.get("/entry", getAllEntries);
 app.patch("/entry/:entryId", updateEntry);
 app.delete("/entry/:entryId", deleteEntry);
+app.post("/assignment", addAssignment);
+app.get("/assignments", getAssignments);
+app.get('/assignments/:assignmentId/questions/:questionId', getQuestionById)
 
-exports.app = functions.https.onRequest(app);
+
+exports.api = functions.https.onRequest(app);
