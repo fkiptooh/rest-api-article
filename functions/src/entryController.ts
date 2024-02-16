@@ -62,20 +62,20 @@ const addEntry = async (req: Request, res: Response) => {
 };
 
 const addAssignment = async (req: QuestionRequest, res: Response) => {
-  // Destructure or define your required fields from the request body
+  
   const {topic, subject, isDue, image, description, questions} = req.body;
 
   try {
     const assignment = db.collection("assignments").doc();
 
     const questionsWithIds = questions.map((question) => ({
-      id: uuidv4(), // Generate a unique ID for each question
+      id: uuidv4(),
       ...question,
     }));
 
-    // Construct your entry object based on the required structure
+    
     const assignmentObject = {
-      id: assignment.id, // Unique ID for the entry, automatically generated
+      id: assignment.id, 
       topic,
       subject,
       isDue,
@@ -86,9 +86,8 @@ const addAssignment = async (req: QuestionRequest, res: Response) => {
 
     await assignment.set(assignmentObject);
 
-    // Respond with the newly created entry object
     res.status(200).send({
-      status: "Success", // Corrected typo from "Succes" to "Success"
+      status: "Success", 
       message: "Entry added successfully",
       data: assignmentObject,
     });
@@ -137,6 +136,23 @@ const getAssignments = async (req: QuestionRequest, res: Response) => {
   } catch (error) {
     console.error("Error fetching assignments: ", error);
     res.status(500).send("Error fetching assignments");
+  }
+};
+
+const getAssignmentById = async (req: QuestionRequest, res: Response) => {
+  try {
+    const assignmentId = req.params.assignmentId;
+    const assignmentSnapshot = await db.collection("assignments").doc(assignmentId).get();
+
+    if (!assignmentSnapshot.exists) {
+      res.status(404).json({ message: "Assignment not found" });
+    }
+
+    const assignmentData = assignmentSnapshot.data();
+    res.status(200).json(assignmentData);
+  } catch (error) {
+    console.error("Error fetching assignment by ID: ", error);
+    res.status(500).send("Error fetching assignment by ID");
   }
 };
 
@@ -206,4 +222,5 @@ export {
   addAssignment,
   getAssignments,
   getQuestionById,
+  getAssignmentById
 };

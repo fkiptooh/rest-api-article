@@ -18,6 +18,7 @@ import {
   addAssignment,
   getAssignments,
   getQuestionById,
+  getAssignmentById,
 } from "./entryController";
 import {routesConfig} from "./users/route_config";
 
@@ -40,9 +41,13 @@ app.post("/entry", addEntry);
 app.get("/entry", getAllEntries);
 app.patch("/entry/:entryId", updateEntry);
 app.delete("/entry/:entryId", deleteEntry);
+
+// Assignments
 app.post("/assignment", addAssignment);
 app.get("/assignments", getAssignments);
 app.get('/assignments/:assignmentId/questions/:questionId', getQuestionById)
+app.get('/assignments/:assignmentId', getAssignmentById);
+
 
 
 exports.api = functions.https.onRequest(app);
