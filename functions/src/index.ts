@@ -21,6 +21,11 @@ import {
   getAssignmentById,
 } from "./entryController";
 import {routesConfig} from "./users/route_config";
+import {
+  addHomework,
+  getAllHomework,
+  getHomeworkById,
+} from "./assignments/controller";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -45,9 +50,11 @@ app.delete("/entry/:entryId", deleteEntry);
 // Assignments
 app.post("/assignment", addAssignment);
 app.get("/assignments", getAssignments);
-app.get('/assignments/:assignmentId/questions/:questionId', getQuestionById)
-app.get('/assignments/:assignmentId', getAssignmentById);
-
+app.get("/assignments/:assignmentId/questions/:questionId", getQuestionById);
+app.get("/assignments/:assignmentId", getAssignmentById);
+app.post("/homework", addHomework);
+app.get("/homework/:homeworkId", getHomeworkById);
+app.get("/homework", getAllHomework);
 
 
 exports.api = functions.https.onRequest(app);

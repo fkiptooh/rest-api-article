@@ -50,7 +50,7 @@ const addEntry = async (req: Request, res: Response) => {
     entry.set(entryObject);
 
     res.status(200).send({
-      status: "Succes",
+      status: "Success",
       message: "Entry added successfully",
       data: entryObject,
     });
@@ -62,7 +62,6 @@ const addEntry = async (req: Request, res: Response) => {
 };
 
 const addAssignment = async (req: QuestionRequest, res: Response) => {
-  
   const {topic, subject, isDue, image, description, questions} = req.body;
 
   try {
@@ -73,9 +72,9 @@ const addAssignment = async (req: QuestionRequest, res: Response) => {
       ...question,
     }));
 
-    
+
     const assignmentObject = {
-      id: assignment.id, 
+      id: assignment.id,
       topic,
       subject,
       isDue,
@@ -87,7 +86,7 @@ const addAssignment = async (req: QuestionRequest, res: Response) => {
     await assignment.set(assignmentObject);
 
     res.status(200).send({
-      status: "Success", 
+      status: "Success",
       message: "Entry added successfully",
       data: assignmentObject,
     });
@@ -102,26 +101,28 @@ const addAssignment = async (req: QuestionRequest, res: Response) => {
 };
 
 const getQuestionById = async (req: QuestionRequest, res: Response) => {
-  const { assignmentId, questionId } = req.params;
+  const {assignmentId, questionId} = req.params;
 
   try {
-    const assignmentDoc = await db.collection("assignments").doc(assignmentId).get();
+    const assignmentDoc = await db.collection("assignments")
+      .doc(assignmentId)
+      .get();
 
     if (!assignmentDoc.exists) {
-      res.status(404).send({ message: "Assignment not found" });
+      res.status(404).send({message: "Assignment not found"});
     }
 
     const assignment: Assignment = assignmentDoc.data() as Assignment;
     const question = assignment.questions.find((q) => q.id === questionId);
 
     if (!question) {
-      res.status(404).send({ message: "Question not found" });
+      res.status(404).send({message: "Question not found"});
     }
 
-    res.status(200).send({ data: question });
+    res.status(200).send({data: question});
   } catch (error) {
     console.error("Error fetching question: ", error);
-    res.status(500).send({ message: "Error fetching question" });
+    res.status(500).send({message: "Error fetching question"});
   }
 };
 
@@ -142,10 +143,12 @@ const getAssignments = async (req: QuestionRequest, res: Response) => {
 const getAssignmentById = async (req: QuestionRequest, res: Response) => {
   try {
     const assignmentId = req.params.assignmentId;
-    const assignmentSnapshot = await db.collection("assignments").doc(assignmentId).get();
+    const assignmentSnapshot = await db.collection("assignments")
+      .doc(assignmentId)
+      .get();
 
     if (!assignmentSnapshot.exists) {
-      res.status(404).json({ message: "Assignment not found" });
+      res.status(404).json({message: "Assignment not found"});
     }
 
     const assignmentData = assignmentSnapshot.data();
@@ -222,5 +225,5 @@ export {
   addAssignment,
   getAssignments,
   getQuestionById,
-  getAssignmentById
+  getAssignmentById,
 };
