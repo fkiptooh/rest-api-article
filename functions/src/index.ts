@@ -17,7 +17,7 @@ import {
   deleteEntry,
   addAssignment,
   getAssignments,
-  getQuestionById,
+  // getQuestionById,
   getAssignmentById,
 } from "./entryController";
 import {routesConfig} from "./users/route_config";
@@ -25,6 +25,8 @@ import {
   addHomework,
   getAllHomework,
   getHomeworkById,
+  getQuizById,
+  getQuestionById,
 } from "./assignments/controller";
 
 // Start writing functions
@@ -55,6 +57,8 @@ app.get("/assignments/:assignmentId", getAssignmentById);
 app.post("/homework", addHomework);
 app.get("/homework/:homeworkId", getHomeworkById);
 app.get("/homework", getAllHomework);
+app.get("/quiz/:quizId", getQuizById);
+app.get("/quiz/:quizId/questions/:questionId", getQuestionById);
 
 
 exports.api = functions.https.onRequest(app);
