@@ -32,6 +32,7 @@ interface Request {
       role: string;
     };
     classId: string;
+    content: string;
     title: string;
     dateCreated: string;
     completed: string;
@@ -57,6 +58,7 @@ const addHomework = async (req: Request, res: Response) => {
     schoolId,
     author,
     classId,
+    content,
     title,
     dateCreated,
     dateDue,
@@ -83,6 +85,7 @@ const addHomework = async (req: Request, res: Response) => {
       schoolId,
       author,
       classId,
+      content,
       title,
       dateCreated,
       dateDue,
